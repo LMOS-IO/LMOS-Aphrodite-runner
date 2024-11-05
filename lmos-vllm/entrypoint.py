@@ -3,7 +3,7 @@ import subprocess
 
 from lmos_config.runner_instance import InstanceConfig
 from lmos_config import config
-from lmos_config.ConfigTypes.llm_runner.vllm import vLLMArgs
+from lmos_config.ConfigTypes.llm_runner.aphrodite import AphroditeArgs
 
 def get_own_config() :
     for llm_runner in config.services.llm_runner:
@@ -17,7 +17,7 @@ asyncio.run(config.load_config_data())
 
 config = get_own_config()
 
-include = set(vLLMArgs.model_fields) & set(config.model_fields_set)
+include = set(AphroditeArgs.model_fields) & set(config.model_fields_set)
 
 CMD = ["--model", config.location]
 
@@ -29,5 +29,5 @@ for field in include:
 CMD = list(map(str, CMD))
 
 vllm = subprocess.run(
-    ["python3", "-m", "vllm.entrypoints.openai.api_server"] + CMD
+    ["python3", "-m", "aphrodite.endpoints.openai.api_server"] + CMD
 )

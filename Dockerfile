@@ -1,4 +1,4 @@
-FROM vllm/vllm-openai
+FROM alpindale/aphrodite-openai:latest
 
 COPY requirements.txt lmos/requirements.txt
 
